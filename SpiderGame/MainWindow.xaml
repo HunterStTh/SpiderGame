@@ -1,0 +1,73 @@
+﻿<Window x:Class="SpiderGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SpiderGame"
+        Title="Spider battle" Height="800" Width="1200"
+        Icon=" C:\Users\апк\Desktop\SpiderGame\SpiderGame\Resources\spider_icon_125849.ico">
+    <!--
+        x:Class - Указывает класс C#, связанный с этим окном.
+        xmlns - Пространства имен для XAML.
+        Title - Заголовок окна.
+        Icon - Путь к иконке приложения.
+    -->
+    <Grid>
+        <!-- Grid.RowDefinitions - Определение строк в Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Первая строка (для кнопок) -->
+            <RowDefinition Height="*"/>
+            <!-- Вторая строка (для списка пауков) -->
+        </Grid.RowDefinitions>
+
+        <!-- Кнопка "Открыть БД" -->
+        <Button Content="Открыть БД" 
+                Click="OpenDatabase_Click" 
+                Width="100" 
+                Margin="10"/>
+        <!--
+                <Button Content="Добавить паука" 
+                Click="CreateSpiderButton_Click"
+                Margin="10" Width="100" 
+                HorizontalAlignment="Left"
+                IsDefault="True"/>
+        -->
+
+        <!-- ItemsControl для отображения списка пауков -->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Spiders}" Margin="10">
+            <!-- ItemTemplate - Шаблон для каждого элемента списка -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <!-- Border - Контейнер для карточки паука -->
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="10">
+                        <StackPanel>
+                            <!-- Имя паука -->
+                            <!-- Информация о здоровье и броне -->
+                            <TextBlock Text="{Binding HealthInfo}"/>
+                            <!-- ComboBox для выбора оружия -->
+                            <ComboBox ItemsSource="{local:EnumToItemsSource {x:Type local:WeaponType}}" 
+                                      SelectedItem="{Binding SelectedWeapon}"
+                                      Margin="0,5"/>
+                            <!-- ComboBox для выбора цели -->
+                            <ComboBox ItemsSource="{Binding Targets}" 
+                                      DisplayMemberPath="Name"
+                                      SelectedItem="{Binding SelectedTarget, Mode=TwoWay}"
+                                      Margin="0,5"/>
+                            <!-- Кнопка "Атаковать" -->
+                            <Button Content="Атаковать" 
+                                    Click="AttackButton_Click"
+                                    Tag="{Binding}"
+                                    Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <!-- ItemsPanel - Определяет контейнер для элементов (здесь WrapPanel) -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                    <!-- Элементы располагаются в несколько строк -->
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Window>
