@@ -10,6 +10,3 @@ MainWindow.xaml.cs:
 MainWindow.xaml.cs:
 Изменил событие смерти(был MessageBox) на labeltext с таймером отобржения 3 сек.
 Добавил коменты
-
-Other:
-Добавил UML БД
